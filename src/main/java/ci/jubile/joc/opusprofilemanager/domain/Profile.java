@@ -29,6 +29,8 @@ public class Profile extends model {
     private String street; // rue
     @Getter @Setter
     private String address; // adresse
+    @Getter @Setter
+    private boolean status;
 
     @Getter @Setter
     private List<Formation> formations;
