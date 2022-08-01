@@ -27,6 +27,11 @@ public class ProfileService {
         return savedProfile;
     }
 
+    // TODO : refqctorer cette method pour que'elle retourne une exeption que il n'existe pas de profile qyqnt cet ID.
+    public Profile findById(String id){
+        return profileRepository.findById(id).orElse(null);
+    }
+
     public void enableProfile(String id){
         Optional<Profile> profileOpt = profileRepository.findById(id);
         profileOpt.ifPresent(profile -> {
@@ -39,7 +44,7 @@ public class ProfileService {
         Optional<Profile> profileOpt = profileRepository.findById(id);
         profileOpt.ifPresent(profile -> {
             profile.setStatus(false);
-            this.save(profile);
+        this.save(profile);
         });
     }
 
