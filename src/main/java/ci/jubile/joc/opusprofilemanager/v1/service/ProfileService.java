@@ -1,7 +1,8 @@
-package ci.jubile.joc.opusprofilemanager.service;
+package ci.jubile.joc.opusprofilemanager.v1.service;
 
 import ci.jubile.joc.opusprofilemanager.domain.Profile;
-import ci.jubile.joc.opusprofilemanager.repository.ProfileRepository;
+import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
+import ci.jubile.joc.opusprofilemanager.v1.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 public class ProfileService {
     @Autowired
     ProfileRepository profileRepository;
+
 
     /**
      * Insert or Update profile data
@@ -27,9 +29,12 @@ public class ProfileService {
         return savedProfile;
     }
 
-    // TODO : refqctorer cette method pour que'elle retourne une exeption que il n'existe pas de profile qyqnt cet ID.
-    public Profile findById(String id){
-        return profileRepository.findById(id).orElse(null);
+    // TODO : refqctorer cette method pour que'elle retourne une exeption quand il n'existe pas de profile ayqnt cet ID.
+    public Profile findById(String id) throws ProfileNotFoundException {
+        Optional<Profile> optionalProfile = profileRepository.findById(id);
+        if (optionalProfile.isEmpty())
+            throw new ProfileNotFoundException();
+        return optionalProfile.get();
     }
 
     public void enableProfile(String id){

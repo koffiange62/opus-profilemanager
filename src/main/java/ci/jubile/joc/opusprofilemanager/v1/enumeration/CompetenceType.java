@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.enumeration;
+package ci.jubile.joc.opusprofilemanager.v1.enumeration;
 
 import lombok.Getter;
 import lombok.Setter;
