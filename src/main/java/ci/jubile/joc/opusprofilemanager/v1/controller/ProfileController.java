@@ -2,6 +2,7 @@ package ci.jubile.joc.opusprofilemanager.v1.controller;
 
 import ci.jubile.joc.opusprofilemanager.domain.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
+import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
 import ci.jubile.joc.opusprofilemanager.v1.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class ProfileController {
 
     // TODO : controller les objets json reçu dans les methode des controlllers
     @PostMapping
-    public Profile create(@Valid @RequestBody Profile profile){
+    public ProfileResource create(@Valid @RequestBody Profile profile){
         return profileService.save(profile);
     }
 
@@ -29,8 +30,13 @@ public class ProfileController {
         try {
             return profileService.findById(id);
         } catch (ProfileNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile "+id+" not found.", e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile "+id+" not found.", null);
         }
+    }
+
+    @GetMapping("profile/mapped/{id}")
+    public ProfileResource findByIdMapped(@PathVariable(name = "id") String id){
+        return profileService.findByIdMapped(id);
     }
 
 

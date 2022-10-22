@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.v1.dto;
+package ci.jubile.joc.opusprofilemanager.v1.resource;
 
 import ci.jubile.joc.opusprofilemanager.domain.Competence;
 import ci.jubile.joc.opusprofilemanager.domain.Experience;
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-public class ProfileDTO extends model {
+public class ProfileResource extends model {
     @Getter @Setter
     @NotBlank(message = "Can not be blank or null")
     @Size(min = 3, max = 16, message = "Must have at least 3 and less than 17 caraters")
@@ -50,7 +50,7 @@ public class ProfileDTO extends model {
     private String address; // adresse
     @Getter @Setter
     private boolean status;
-
+    /*
     @Getter @Setter
     private List<Formation> formations;
     @Getter @Setter
@@ -58,18 +58,20 @@ public class ProfileDTO extends model {
     @Getter @Setter
     private List<Competence> competences;
 
-    public ProfileDTO() {
+     */
+
+    public ProfileResource() {
     }
 
-    public ProfileDTO(String lastName, String firstName, String email){
+    public ProfileResource(String lastName, String firstName, String email){
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
     }
 
     @PersistenceConstructor
-    public ProfileDTO(String id, String lastName, String firstName, String email, String phoneNumber, String password,
-                      String country, String province, String city, String district, String street, String address) {
+    public ProfileResource(String id, String lastName, String firstName, String email, String phoneNumber, String password,
+                           String country, String province, String city, String district, String street, String address) {
         this.setId(id);
         this.lastName = lastName;
         this.firstName = firstName;
@@ -99,9 +101,6 @@ public class ProfileDTO extends model {
                 ", district='" + district + '\'' +
                 ", street='" + street + '\'' +
                 ", address='" + address + '\'' +
-                ", formations=" + formations +
-                ", experiences=" + experiences +
-                ", competences=" + competences +
                 '}';
     }
 }

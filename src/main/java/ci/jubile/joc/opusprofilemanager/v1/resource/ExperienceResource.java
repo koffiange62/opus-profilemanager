@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.v1.dto;
+package ci.jubile.joc.opusprofilemanager.v1.resource;
 
 import ci.jubile.joc.opusprofilemanager.domain.Task;
 import ci.jubile.joc.opusprofilemanager.domain.model;
@@ -10,7 +10,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ExperienceDTO extends model {
+public class ExperienceResource extends model {
     @Getter @Setter
     private LocalDate startedAt;
     @Getter @Setter
@@ -25,7 +25,7 @@ public class ExperienceDTO extends model {
     private List<Task> tasks;
 
     @PersistenceConstructor
-    public ExperienceDTO(String id, LocalDate startedAt, LocalDate endedAt, String company, String jobTitle, ContractType contractType, List<Task> tasks) {
+    public ExperienceResource(String id, LocalDate startedAt, LocalDate endedAt, String company, String jobTitle, ContractType contractType, List<Task> tasks) {
         this.setId(id);
         this.startedAt = startedAt;
         this.endedAt = endedAt;
