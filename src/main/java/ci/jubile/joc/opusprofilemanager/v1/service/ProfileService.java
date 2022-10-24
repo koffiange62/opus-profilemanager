@@ -20,52 +20,39 @@ public class ProfileService {
     @Autowired
     ProfileMapper profileMapper;
 
-
-    /**
-     * Insert or Update profile data
-     * @param profile
-     * @return
-     */
-    public ProfileResource save(Profile profile){
+    public ProfileResource create(ProfileResource profileResource){
         Profile savedProfile;
-        if (profile.getId() == null){
-            savedProfile = profileRepository.insert(profile);
+        if (profileResource.getId() != null && profileRepository.existsById(profileResource.getId()))
+            throw new IllegalArgumentException("Ce profil existe deja");
+        savedProfile = profileRepository.insert(profileMapper.profileResourceToProfile(profileResource));
+        return profileMapper.profileToProfileResource(savedProfile);
+    }
+
+    public ProfileResource update(String id, ProfileResource profileResource){
+        Profile savedProfile;
+        if (profileResource.getId() == null){
+            savedProfile = profileRepository.insert(profileMapper.profileResourceToProfile(profileResource));
         } else {
-            savedProfile = profileRepository.save(profile);
+            savedProfile = profileRepository.save(profileMapper.profileResourceToProfile(profileResource));
         }
         return profileMapper.profileToProfileResource(savedProfile);
     }
 
-    // TODO : refactorer cette method pour que'elle retourne une exeption quand il n'existe pas de profile ayqnt cet ID.
-    public Profile findById(String id) throws ProfileNotFoundException {
+    public ProfileResource findById(String id) throws ProfileNotFoundException {
         Optional<Profile> optionalProfile = profileRepository.findById(id);
         if (optionalProfile.isEmpty())
-            throw new ProfileNotFoundException();
-        return optionalProfile.get();
-    }
-
-    // TODO : refactorer cette method pour que'elle retourne une exeption quand il n'existe pas de profile ayqnt cet ID.
-    public ProfileResource findByIdMapped(String id) {
-        Optional<Profile> optionalProfile = profileRepository.findById(id);
-        if (optionalProfile.isEmpty())
-            log.info("NON TROUVE");
+            throw new ProfileNotFoundException("Profile non trouvé");
         return profileMapper.profileToProfileResource(optionalProfile.get());
     }
 
-    public void enableProfile(String id){
+    public boolean enableOrDisableProfile(String id) throws ProfileNotFoundException {
         Optional<Profile> profileOpt = profileRepository.findById(id);
-        profileOpt.ifPresent(profile -> {
-            profile.setStatus(true);
-            this.save(profile);
-        });
+        if (profileOpt.isPresent()){
+            profileOpt.get().setStatus(!profileOpt.get().isStatus());
+            this.update(id, profileMapper.profileToProfileResource(profileOpt.get()));
+            return !profileOpt.get().isStatus();
+        } else {
+            throw new ProfileNotFoundException();
+        }
     }
-
-    public void desableProfile(String id){
-        Optional<Profile> profileOpt = profileRepository.findById(id);
-        profileOpt.ifPresent(profile -> {
-            profile.setStatus(false);
-        this.save(profile);
-        });
-    }
-
 }

@@ -50,42 +50,9 @@ public class ProfileResource extends model {
     private String address; // adresse
     @Getter @Setter
     private boolean status;
-    /*
-    @Getter @Setter
-    private List<Formation> formations;
-    @Getter @Setter
-    private List<Experience> experiences;
-    @Getter @Setter
-    private List<Competence> competences;
-
-     */
 
     public ProfileResource() {
     }
-
-    public ProfileResource(String lastName, String firstName, String email){
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
-    }
-
-    @PersistenceConstructor
-    public ProfileResource(String id, String lastName, String firstName, String email, String phoneNumber, String password,
-                           String country, String province, String city, String district, String street, String address) {
-        this.setId(id);
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.country = country;
-        this.province = province;
-        this.city = city;
-        this.district = district;
-        this.street = street;
-        this.address = address;
-    }
-
 
     @Override
     public String toString() {

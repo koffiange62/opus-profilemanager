@@ -1,14 +1,11 @@
 package ci.jubile.joc.opusprofilemanager.v1.controller;
 
-import ci.jubile.joc.opusprofilemanager.domain.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
 import ci.jubile.joc.opusprofilemanager.v1.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -19,25 +16,24 @@ public class ProfileController {
     @Autowired
     ProfileService profileService;
 
-    // TODO : controller les objets json reçu dans les methode des controlllers
     @PostMapping
-    public ProfileResource create(@Valid @RequestBody Profile profile){
-        return profileService.save(profile);
+    public ProfileResource create(@Valid @RequestBody ProfileResource profileResource){
+        return profileService.create(profileResource);
     }
 
     @GetMapping("profile/{id}")
-    public Profile findById(@PathVariable(name = "id") String id){
-        try {
-            return profileService.findById(id);
-        } catch (ProfileNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile "+id+" not found.", null);
-        }
+    public ProfileResource findById(@PathVariable(name = "id") String id) throws ProfileNotFoundException {
+        return profileService.findById(id);
     }
 
-    @GetMapping("profile/mapped/{id}")
-    public ProfileResource findByIdMapped(@PathVariable(name = "id") String id){
-        return profileService.findByIdMapped(id);
+    @PutMapping("profile/{id}")
+    public ProfileResource updateProfile(@PathVariable(name = "id") String id, @Valid @RequestBody ProfileResource profileResource){
+        return profileService.update(id, profileResource);
     }
 
+    @PutMapping("profile/enabling-or-desabling/{id}")
+    public void changeProfileEnablingStatus(@PathVariable(name = "id") String id) throws ProfileNotFoundException {
+        profileService.enableOrDisableProfile(id);
+    }
 
 }
