@@ -1,5 +1,7 @@
 package ci.jubile.joc.opusprofilemanager.domain;
 
+import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -45,7 +47,7 @@ public class Profile extends model {
     @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
     private String address; // adresse
     @Getter @Setter
-    private boolean status;
+    private ProfileStatus status;
 
     @Getter @Setter
     private List<Formation> formations;
@@ -55,12 +57,6 @@ public class Profile extends model {
     private List<Competence> competences;
 
     public Profile() {
-    }
-
-    public Profile(String lastName, String firstName, String email){
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
     }
 
     @PersistenceConstructor

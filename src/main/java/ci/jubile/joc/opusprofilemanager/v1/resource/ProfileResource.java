@@ -1,19 +1,19 @@
 package ci.jubile.joc.opusprofilemanager.v1.resource;
 
-import ci.jubile.joc.opusprofilemanager.domain.Competence;
-import ci.jubile.joc.opusprofilemanager.domain.Experience;
-import ci.jubile.joc.opusprofilemanager.domain.Formation;
 import ci.jubile.joc.opusprofilemanager.domain.model;
+import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.PersistenceConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
-public class ProfileResource extends model {
+@SuperBuilder
+public class ProfileResource extends ModelResource {
     @Getter @Setter
     @NotBlank(message = "Can not be blank or null")
     @Size(min = 3, max = 16, message = "Must have at least 3 and less than 17 caraters")
@@ -49,10 +49,7 @@ public class ProfileResource extends model {
     @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
     private String address; // adresse
     @Getter @Setter
-    private boolean status;
-
-    public ProfileResource() {
-    }
+    private ProfileStatus status;
 
     @Override
     public String toString() {
