@@ -4,6 +4,7 @@ import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
 import ci.jubile.joc.opusprofilemanager.v1.service.ProfileServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +14,8 @@ import javax.validation.Valid;
 @RequestMapping("v1/profiles")
 @Validated
 public class ProfileController {
-
-    private final ProfileServiceImpl profileServiceImpl;
-
-    public ProfileController(ProfileServiceImpl profileServiceImpl) {
-        this.profileServiceImpl = profileServiceImpl;
-    }
+    @Autowired
+    ProfileServiceImpl profileServiceImpl;
 
     @PostMapping
     public ProfileResource create(@Valid @RequestBody ProfileResource profileResource){
@@ -30,9 +27,9 @@ public class ProfileController {
         return profileServiceImpl.findById(id);
     }
 
-    @PutMapping()
-    public ProfileResource updateProfile(@Valid @RequestBody ProfileResource profileResource){
-        return profileServiceImpl.update(profileResource);
+    @PutMapping("profile/{id}")
+    public ProfileResource updateProfile(@PathVariable(name = "id") String id, @Valid @RequestBody ProfileResource profileResource){
+        return profileServiceImpl.update(id, profileResource);
     }
 
     @PutMapping("profile/enabling-or-desabling/{id}")
