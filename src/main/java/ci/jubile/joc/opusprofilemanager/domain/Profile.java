@@ -1,6 +1,7 @@
 package ci.jubile.joc.opusprofilemanager.domain;
 
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.PersistenceConstructor;
