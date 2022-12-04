@@ -1,11 +1,12 @@
-package ci.jubile.joc.opusprofilemanager.domain;
+package ci.jubile.joc.opusprofilemanager.v1.resource;
 
+import ci.jubile.joc.opusprofilemanager.domain.model;
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.CompetenceType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.PersistenceConstructor;
 
-public class Competence extends model{
+public class CompetenceResource extends model {
     @Getter @Setter
     private String action;
     @Getter @Setter
@@ -14,7 +15,7 @@ public class Competence extends model{
     private CompetenceType competenceType;
 
     @PersistenceConstructor
-    public Competence(String id, String action, String outil, CompetenceType competenceType) {
+    public CompetenceResource(String id, String action, String outil, CompetenceType competenceType) {
         this.setId(id);
         this.action = action;
         this.outil = outil;
