@@ -1,6 +1,7 @@
 package ci.jubile.joc.opusprofilemanager.domain;
 
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -25,6 +26,8 @@ public class Profile extends model {
     @Getter @Setter
     @Size(min = 8, max = 12, message = "Must have at least 8 and less than 12 caraters")
     private String phoneNumber;
+    @Getter @Setter
+    private String password; // mot de passe
     @Getter @Setter
     @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
     private String country; // pays
@@ -57,13 +60,14 @@ public class Profile extends model {
     }
 
     @PersistenceConstructor
-    public Profile(String id, String lastName, String firstName, String email, String phoneNumber,
+    public Profile(String id, String lastName, String firstName, String email, String phoneNumber, String password,
                    String country, String province, String city, String district, String street, String address) {
         this.setId(id);
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.password = password;
         this.country = country;
         this.province = province;
         this.city = city;
@@ -80,6 +84,7 @@ public class Profile extends model {
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
                 ", country='" + country + '\'' +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
