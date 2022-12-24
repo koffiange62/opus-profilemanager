@@ -7,7 +7,7 @@ public enum CompetenceType {
     PRO("Aptitude Professionnelle"),
     TALENT("Talent");
 
-    @Getter @Setter
+    @Getter
     private final String libelle;
 
     CompetenceType(String libelle) {
