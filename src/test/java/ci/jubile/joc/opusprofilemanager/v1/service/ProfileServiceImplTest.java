@@ -61,7 +61,7 @@ class ProfileServiceImplTest {
         Profile profile = this.profileBuilder();
         updateArrangePart(true, profileResource, profile);
 
-        ProfileResource updated = profileService.update(ID, profileResource);
+        ProfileResource updated = profileService.update(profileResource);
 
         Mockito.verify(profileRepository, Mockito.times(1)).save(Mockito.any(Profile.class));
         Assertions.assertNotNull(updated);
@@ -73,7 +73,7 @@ class ProfileServiceImplTest {
         Profile profile = profileBuilder();
         updateArrangePart(false, profileResource, profile);
 
-        ProfileResource updated = profileService.update("gqgjgdf", profileResource);
+        ProfileResource updated = profileService.update(profileResource);
 
         Mockito.verify(profileRepository, Mockito.times(1)).insert(Mockito.any(Profile.class));
         Assertions.assertNotNull(updated);
@@ -84,7 +84,7 @@ class ProfileServiceImplTest {
         ProfileResource profileResource = profileResourceBuilder();
         Mockito.when(profileRepository.existsById(Mockito.any())).thenThrow(IllegalArgumentException.class);
         profileService = new ProfileServiceImpl(profileRepository, profileMapper);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.update(ID, profileResource));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.update(profileResource));
     }
 
     @Test

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -28,16 +29,22 @@ public class ProfileServiceImpl implements ProfileService{
 
 
         Profile profile = profileMapper.profileResourceToProfile(profileResource);
+        profile.setCreatedAt(LocalDateTime.now());
         profile = profileRepository.insert(profile);
         return profileMapper.profileToProfileResource(profile);
     }
 
-    public ProfileResource update(String id, ProfileResource profileResource){
+    public ProfileResource update(ProfileResource profileResource){
+        Profile unsavedProfile = profileMapper.profileResourceToProfile(profileResource);
         Profile savedProfile;
-        if (profileRepository.existsById(id)){
-            savedProfile = profileRepository.save(profileMapper.profileResourceToProfile(profileResource));
+        Optional<Profile> oldProfile = profileRepository.findById(unsavedProfile.getId());
+        if (oldProfile.isPresent()){
+            unsavedProfile.setUpdatedAt(LocalDateTime.now());
+            unsavedProfile.setCreatedAt(oldProfile.get().getCreatedAt());
+            savedProfile = profileRepository.save(unsavedProfile);
         } else {
-            savedProfile = profileRepository.insert(profileMapper.profileResourceToProfile(profileResource));
+            unsavedProfile.setCreatedAt(LocalDateTime.now());
+            savedProfile = profileRepository.insert(unsavedProfile);
         }
         return profileMapper.profileToProfileResource(savedProfile);
     }
@@ -53,7 +60,7 @@ public class ProfileServiceImpl implements ProfileService{
         Optional<Profile> profileOpt = profileRepository.findById(id);
         profileOpt.ifPresent(profile -> {
             profileOpt.get().setStatus(status);
-            this.update(id, profileMapper.profileToProfileResource(profileOpt.get()));
+            this.update(profileMapper.profileToProfileResource(profileOpt.get()));
         });
     }
 }

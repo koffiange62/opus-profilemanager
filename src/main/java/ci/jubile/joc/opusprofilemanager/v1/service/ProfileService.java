@@ -7,7 +7,7 @@ import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
 public interface ProfileService {
     ProfileResource create(ProfileResource profileResource);
 
-    ProfileResource update(String id, ProfileResource profileResource);
+    ProfileResource update(ProfileResource profileResource);
 
     ProfileResource findById(String id) throws ProfileNotFoundException;
 
