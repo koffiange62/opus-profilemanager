@@ -1,19 +1,26 @@
 package ci.jubile.joc.opusprofilemanager.v1.resource;
 
-import ci.jubile.joc.opusprofilemanager.domain.Competence;
-import ci.jubile.joc.opusprofilemanager.domain.Experience;
-import ci.jubile.joc.opusprofilemanager.domain.Formation;
-import ci.jubile.joc.opusprofilemanager.domain.model;
+import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.PersistenceConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.time.LocalDateTime;
 
-public class ProfileResource extends model {
+
+@Builder
+@AllArgsConstructor
+public class ProfileResource {
+    @Getter @Setter
+    private String id;
+    @Getter @Setter
+    private LocalDateTime createdAt;
+    @Getter @Setter
+    private LocalDateTime updatedAt;
     @Getter @Setter
     @NotBlank(message = "Can not be blank or null")
     @Size(min = 3, max = 16, message = "Must have at least 3 and less than 17 caraters")
@@ -49,45 +56,8 @@ public class ProfileResource extends model {
     @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
     private String address; // adresse
     @Getter @Setter
-    private boolean status;
-    /*
-    @Getter @Setter
-    private List<Formation> formations;
-    @Getter @Setter
-    private List<Experience> experiences;
-    @Getter @Setter
-    private List<Competence> competences;
+    private ProfileStatus status;
 
-     */
-
-    public ProfileResource() {
-    }
-
-    public ProfileResource(String lastName, String firstName, String email){
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
-    }
-
-    @PersistenceConstructor
-    public ProfileResource(String id, String lastName, String firstName, String email, String phoneNumber, String password,
-                           String country, String province, String city, String district, String street, String address) {
-        this.setId(id);
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.country = country;
-        this.province = province;
-        this.city = city;
-        this.district = district;
-        this.street = street;
-        this.address = address;
-    }
-
-
-    @Override
     public String toString() {
         return "Profile{" +
                 "lastName='" + lastName + '\'' +

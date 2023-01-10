@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.security.encoder.strength",
+      "type": "java.lang.Integer",
+      "description": "Create an encoder with strength 16."
+  }
+] }
