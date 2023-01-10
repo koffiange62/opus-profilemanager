@@ -56,12 +56,12 @@ class ProfileServiceImplTest {
     }
 
     @Test
-    void givenIdAndProfileResource_whenIdExist_thenUpdateMakeSave() {
+    void givenProfileResource_whenExist_thenUpdateMakeSave() {
         ProfileResource profileResource = this.profileResourceBuilder();
         Profile profile = this.profileBuilder();
         updateArrangePart(true, profileResource, profile);
 
-        ProfileResource updated = profileService.update(ID, profileResource);
+        ProfileResource updated = profileService.update(profileResource);
 
         Mockito.verify(profileRepository, Mockito.times(1)).save(Mockito.any(Profile.class));
         Assertions.assertNotNull(updated);
@@ -73,7 +73,7 @@ class ProfileServiceImplTest {
         Profile profile = profileBuilder();
         updateArrangePart(false, profileResource, profile);
 
-        ProfileResource updated = profileService.update("gqgjgdf", profileResource);
+        ProfileResource updated = profileService.update(profileResource);
 
         Mockito.verify(profileRepository, Mockito.times(1)).insert(Mockito.any(Profile.class));
         Assertions.assertNotNull(updated);
@@ -81,10 +81,12 @@ class ProfileServiceImplTest {
 
     @Test
     void givenIdAndProfileResource_whenIdIsNull_thenThrowIllegalArgumentException() {
+        Profile profile = profileBuilder();
         ProfileResource profileResource = profileResourceBuilder();
-        Mockito.when(profileRepository.existsById(Mockito.any())).thenThrow(IllegalArgumentException.class);
+        Mockito.when(profileMapper.profileResourceToProfile(Mockito.any(ProfileResource.class))).thenReturn(profile);
+        Mockito.when(profileRepository.findById(Mockito.any())).thenThrow(IllegalArgumentException.class);
         profileService = new ProfileServiceImpl(profileRepository, profileMapper);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.update(ID, profileResource));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.update(profileResource));
     }
 
     @Test
@@ -106,7 +108,7 @@ class ProfileServiceImplTest {
     }
 
     private void updateArrangePart(boolean isIdExist, ProfileResource profileResource, Profile profile){
-        Mockito.when(profileRepository.existsById(Mockito.anyString())).thenReturn(isIdExist);
+        Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.of(profileBuilder()));
         Mockito.when(profileMapper.profileResourceToProfile(Mockito.any(ProfileResource.class))).thenReturn(profile);
         Mockito.when(profileMapper.profileToProfileResource(Mockito.any(Profile.class))).thenReturn(profileResource);
         if (isIdExist) {
