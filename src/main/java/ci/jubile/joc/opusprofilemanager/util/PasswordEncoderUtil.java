@@ -7,10 +7,10 @@ public class PasswordEncoderUtil {
 
     @Value("${spring.security.encoder.strength}")
     private static final Integer encoderStrength = 16;
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(encoderStrength);
 
-    public static BCryptPasswordEncoder getEncoder(){
-        return encoder;
+    public static String bcryptPasswordEncode(String password){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(encoderStrength);
+        return encoder.encode(password);
     }
 
 }
