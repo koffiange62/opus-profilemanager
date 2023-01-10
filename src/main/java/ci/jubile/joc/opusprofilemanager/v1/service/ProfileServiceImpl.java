@@ -1,6 +1,7 @@
 package ci.jubile.joc.opusprofilemanager.v1.service;
 
 import ci.jubile.joc.opusprofilemanager.domain.Profile;
+import ci.jubile.joc.opusprofilemanager.util.PasswordEncoderUtil;
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
 import ci.jubile.joc.opusprofilemanager.v1.mapper.ProfileMapper;
@@ -30,13 +31,14 @@ public class ProfileServiceImpl implements ProfileService{
 
         Profile profile = profileMapper.profileResourceToProfile(profileResource);
         profile.setCreatedAt(LocalDateTime.now());
+        profile.setPassword(PasswordEncoderUtil.bcryptPasswordEncode(profile.getPassword()));
         profile = profileRepository.insert(profile);
         return profileMapper.profileToProfileResource(profile);
     }
 
     public ProfileResource update(ProfileResource profileResource){
-        Profile unsavedProfile = profileMapper.profileResourceToProfile(profileResource);
         Profile savedProfile;
+        Profile unsavedProfile = profileMapper.profileResourceToProfile(profileResource);
         Optional<Profile> oldProfile = profileRepository.findById(unsavedProfile.getId());
         if (oldProfile.isPresent()){
             unsavedProfile.setUpdatedAt(LocalDateTime.now());
@@ -44,6 +46,7 @@ public class ProfileServiceImpl implements ProfileService{
             savedProfile = profileRepository.save(unsavedProfile);
         } else {
             unsavedProfile.setCreatedAt(LocalDateTime.now());
+            unsavedProfile.setPassword(PasswordEncoderUtil.bcryptPasswordEncode(unsavedProfile.getPassword()));
             savedProfile = profileRepository.insert(unsavedProfile);
         }
         return profileMapper.profileToProfileResource(savedProfile);
