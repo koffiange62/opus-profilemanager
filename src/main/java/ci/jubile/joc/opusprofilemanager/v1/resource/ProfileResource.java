@@ -1,6 +1,7 @@
 package ci.jubile.joc.opusprofilemanager.v1.resource;
 
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
+import com.mongodb.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,8 +37,6 @@ public class ProfileResource {
     @Size(min = 8, max = 12, message = "Must have at least 8 and less than 12 caraters")
     private String phoneNumber;
     @Getter @Setter
-    private String password; // mot de passe
-    @Getter @Setter
     @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
     private String country; // pays
     @Getter @Setter
@@ -50,13 +49,17 @@ public class ProfileResource {
     @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
     private String district; // quartier
     @Getter @Setter
-    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Size(max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Nullable
     private String street; // rue
     @Getter @Setter
-    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Size(max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Nullable
     private String address; // adresse
     @Getter @Setter
     private ProfileStatus status;
+    @Getter @Setter
+    private String password;
 
     public String toString() {
         return "Profile{" +
@@ -64,7 +67,6 @@ public class ProfileResource {
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
                 ", country='" + country + '\'' +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +

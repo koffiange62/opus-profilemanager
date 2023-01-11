@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ProfileMapper {
+    @Mapping(target = "password", ignore = true)
     ProfileResource profileToProfileResource(Profile profile);
 
     @Mapping(target = "formations", ignore = true)
