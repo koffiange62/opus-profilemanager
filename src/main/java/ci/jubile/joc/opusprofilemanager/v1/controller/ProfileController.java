@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("v1/profiles")
@@ -20,7 +21,12 @@ public class ProfileController {
         this.profileServiceImpl = profileServiceImpl;
     }
 
-    @PostMapping
+    @GetMapping
+    public List<ProfileResource> findAll(){
+        return profileServiceImpl.findAll();
+    }
+
+    @PostMapping("profile")
     public ProfileResource create(@Valid @RequestBody ProfileResource profileResource){
         return profileServiceImpl.create(profileResource);
     }
@@ -30,7 +36,7 @@ public class ProfileController {
         return profileServiceImpl.findById(id);
     }
 
-    @PutMapping()
+    @PutMapping("profile")
     public ProfileResource updateProfile(@Valid @RequestBody ProfileResource profileResource){
         return profileServiceImpl.update(profileResource);
     }
