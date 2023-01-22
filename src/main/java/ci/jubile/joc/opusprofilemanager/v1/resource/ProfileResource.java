@@ -1,7 +1,6 @@
 package ci.jubile.joc.opusprofilemanager.v1.resource;
 
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
-import com.mongodb.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,11 +49,9 @@ public class ProfileResource {
     private String district; // quartier
     @Getter @Setter
     @Size(max = 20, message = "Must have at least 3 and less than 20 caraters")
-    @Nullable
     private String street; // rue
     @Getter @Setter
     @Size(max = 20, message = "Must have at least 3 and less than 20 caraters")
-    @Nullable
     private String address; // adresse
     @Getter @Setter
     private ProfileStatus status;
