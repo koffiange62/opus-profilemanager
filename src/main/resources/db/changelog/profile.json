@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "63c625b748145b555ab76c3e"
+  },
+  "lastName": "Ange Stephane",
+  "firstName": "Koffi",
+  "email": "koffiange62@gmail.com",
+  "phoneNumber": "+15144341118",
+  "country": "CAD",
+  "province": "Quebec",
+  "city": "Montreal",
+  "district": "NDGO",
+  "street": "avenue Walkley",
+  "address": "2325",
+  "status": "DISABLE",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1673930161403"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1673930764833"
+    }
+  },
+  "_class": "ci.jubile.joc.opusprofilemanager.domain.Profile"
+},{
+  "_id": {
+    "$oid": "63c63312271c1e4eda752f64"
+  },
+  "lastName": "Ahou Bénédicte",
+  "firstName": "Kouamé",
+  "email": "m.benedictek77@gmail.com",
+  "phoneNumber": "+15147874341",
+  "password": "123456",
+  "country": "Canada",
+  "province": "Quebec",
+  "city": "Montreal",
+  "district": "NDG",
+  "street": "avenue Walkley",
+  "address": "2325",
+  "status": "DISABLE",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1673933580116"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674019725569"
+    }
+  },
+  "_class": "ci.jubile.joc.opusprofilemanager.domain.Profile"
+}]
