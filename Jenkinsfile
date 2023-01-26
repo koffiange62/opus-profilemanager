@@ -13,7 +13,8 @@ pipeline{
     stages{
         stage('git pull'){
             steps{
-                git 'https://github.com/koffiange62/opus-profilemanager.git'
+                checkout scm
+                // git 'https://github.com/koffiange62/opus-profilemanager.git'
             }
         }
         // build
