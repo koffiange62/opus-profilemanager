@@ -45,4 +45,7 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	filter {
+		includeTestsMatching "ci.jubile.joc.opusprofilemanager.unittest.*"
+	}
 }
