@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -35,56 +36,64 @@ public class ProfileServiceImpl implements ProfileService{
     }
 
     @Override
-    public List<ProfileResource> findAll() {
-        return profileRepository.findAll().stream().map(profileMapper::profileToProfileResource).collect(Collectors.toList());
+    public List<Profile> findAll() {
+        return profileRepository.findAll();
     }
 
-    public ProfileResource create(ProfileResource profileResource){
-        if (profileResource.getEmail() != null && profileRepository.existsProfileByEmail(profileResource.getEmail()))
+    @Override
+    public Profile create(Profile profile){
+        if (profile.getEmail() != null && profileRepository.existsProfileByEmail(profile.getEmail()))
             throw new IllegalArgumentException(resourceBundle.getString("profile.already.exist"));
 
-        Profile profile = profileMapper.profileResourceToProfile(profileResource);
         profile.setCreatedAt(LocalDateTime.now());
-        profile = profileRepository.insert(profile);
-
-        PasswordResource passwordResource = PasswordResource.builder()
-                .profileId(profile.getId())
-                .newPassword(profileResource.getPassword())
-                .build();
-        Assert.notNull(passwordResource, "Password Resource est null");
-        passwordService.create(passwordResource);
-
-        return profileMapper.profileToProfileResource(profile);
+        return profileRepository.insert(profile);
     }
 
-    public ProfileResource update(ProfileResource profileResource){
-        Profile savedProfile;
-        Profile unsavedProfile = profileMapper.profileResourceToProfile(profileResource);
-        Optional<Profile> oldProfile = profileRepository.findById(unsavedProfile.getId());
-        if (oldProfile.isPresent()){
-            unsavedProfile.setUpdatedAt(LocalDateTime.now());
-            unsavedProfile.setCreatedAt(oldProfile.get().getCreatedAt());
-            savedProfile = profileRepository.save(unsavedProfile);
+    @Override
+    public Profile update(Profile newOne){
+        Profile updatedProfile;
+        Optional<Profile> oldProfileOptional = profileRepository.findById(newOne.getId());
+        if (oldProfileOptional.isPresent()){
+            Profile oldProfile = oldProfileOptional.get();
+            this.compareAndChange(oldProfile, newOne);
+            updatedProfile = profileRepository.save(oldProfile);
         } else {
-            unsavedProfile.setCreatedAt(LocalDateTime.now());
-            savedProfile = profileRepository.insert(unsavedProfile);
+            newOne.setCreatedAt(LocalDateTime.now());
+            updatedProfile = profileRepository.insert(newOne);
         }
-        return profileMapper.profileToProfileResource(savedProfile);
+        return updatedProfile;
     }
 
-    public ProfileResource findById(String id) throws ProfileNotFoundException {
+    @Override
+    public Profile findById(String id) throws ProfileNotFoundException {
         Optional<Profile> optionalProfile = profileRepository.findById(id);
-        if (optionalProfile.isEmpty())
-            throw new ProfileNotFoundException(resourceBundle.getString("profile.not.found"));
-        return profileMapper.profileToProfileResource(optionalProfile.get());
+        return optionalProfile.orElseThrow(() -> new ProfileNotFoundException(resourceBundle.getString("profile.not.found")));
     }
 
-    public ProfileResource enableOrDisableProfile(String id, ProfileStatus status) throws ProfileNotFoundException {
-        Optional<Profile> profileOpt = profileRepository.findById(id);
-        if(profileOpt.isEmpty())
+    @Override
+    public void enableOrDisableProfile(String id, ProfileStatus status) throws ProfileNotFoundException {
+        Optional<Profile> optionalProfile = profileRepository.findById(id);
+        if(optionalProfile.isEmpty())
             throw new ProfileNotFoundException(resourceBundle.getString("profile.not.found"));
 
-        profileOpt.get().setStatus(status);
-        return this.update(profileMapper.profileToProfileResource(profileOpt.get()));
+        Profile profile = optionalProfile.get();
+        profile.setStatus(status);
+        update(profile);
+    }
+
+    private void compareAndChange(Profile oldProfile, Profile newOne){
+        if(!oldProfile.getLastName().equals(newOne.getLastName())) oldProfile.setLastName(newOne.getLastName());
+        if(!oldProfile.getFirstName().equals(newOne.getFirstName())) oldProfile.setFirstName(newOne.getFirstName());
+        if(!oldProfile.getEmail().equals(newOne.getEmail())) oldProfile.setEmail(newOne.getEmail());
+        if(!oldProfile.getPhoneNumber().equals(newOne.getPhoneNumber())) oldProfile.setPhoneNumber(newOne.getPhoneNumber());
+        if(!oldProfile.getCountry().equals(newOne.getCountry())) oldProfile.setCountry(newOne.getCountry());
+        if(!oldProfile.getProvince().equals(newOne.getProvince())) oldProfile.setProvince(newOne.getProvince());
+        if(!oldProfile.getCity().equals(newOne.getCity())) oldProfile.setCity(newOne.getCity());
+        if(!oldProfile.getStreet().equals(newOne.getStreet())) oldProfile.setDistrict(newOne.getStreet());
+        if(!oldProfile.getDistrict().equals(newOne.getDistrict())) oldProfile.setDistrict(newOne.getDistrict());
+        if(!oldProfile.getAddress().equals(newOne.getAddress())) oldProfile.setAddress(newOne.getAddress());
+        if(!oldProfile.getStatus().equals(newOne.getStatus())) oldProfile.setStatus(newOne.getStatus());
+        if(!oldProfile.getCreatedAt().equals(newOne.getCreatedAt())) oldProfile.setCreatedAt(oldProfile.getCreatedAt());
+        oldProfile.setUpdatedAt(LocalDateTime.now());
     }
 }

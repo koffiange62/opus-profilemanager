@@ -44,7 +44,7 @@ public class Profile extends model {
     @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
     private String address; // adresse
     @Getter @Setter
-    private ProfileStatus status;
+    private ProfileStatus status = ProfileStatus.ENABLE;
 
     @Getter @Setter
     private List<Formation> formations;

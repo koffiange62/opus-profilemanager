@@ -20,6 +20,6 @@ public class PasswordController {
 
     @PutMapping("edit")
     public void editPassword(@RequestBody @Valid PasswordResource passwordResource) throws PasswordHandlerException {
-        passwordService.updatePassword(passwordResource);
+        passwordService.updatePassword(passwordResource.getProfileId(), passwordResource.getNewPassword());
     }
 }
