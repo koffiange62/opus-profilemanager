@@ -4,10 +4,9 @@ import ci.jubile.joc.opusprofilemanager.domain.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
 import ci.jubile.joc.opusprofilemanager.v1.mapper.ProfileMapper;
-import ci.jubile.joc.opusprofilemanager.v1.resource.PasswordResource;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
+import ci.jubile.joc.opusprofilemanager.v1.service.PasswordService;
 import ci.jubile.joc.opusprofilemanager.v1.service.ProfileServiceImpl;
-import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,10 +21,12 @@ public class ProfileController {
 
     private final ProfileServiceImpl profileServiceImpl;
     private final ProfileMapper profileMapper;
+    private final PasswordService passwordService;
 
-    public ProfileController(ProfileServiceImpl profileServiceImpl, ProfileMapper profileMapper) {
+    public ProfileController(ProfileServiceImpl profileServiceImpl, ProfileMapper profileMapper, PasswordService passwordService) {
         this.profileServiceImpl = profileServiceImpl;
         this.profileMapper = profileMapper;
+        this.passwordService = passwordService;
     }
 
     @GetMapping
@@ -36,16 +37,9 @@ public class ProfileController {
     @PostMapping("profile")
     public ProfileResource create(@Valid @RequestBody ProfileResource profileResource){
         Profile profile = profileMapper.profileResourceToProfile(profileResource);
-        profile = profileServiceImpl.create(profile);
 
-        /*
-        PasswordResource passwordResource = PasswordResource.builder()
-                .profileId(profile.getId())
-                .newPassword(profileResource.getPassword())
-                .build();
-        Assert.notNull(passwordResource, "Password Resource est null");
-        passwordService.create(passwordResource);
-         */
+        profile = profileServiceImpl.create(profile);
+        passwordService.create(profile.getId(), profileResource.getPassword());
 
         return profileMapper.profileToProfileResource(profile);
     }
