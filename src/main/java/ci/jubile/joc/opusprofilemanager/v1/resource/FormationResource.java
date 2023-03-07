@@ -1,6 +1,7 @@
 package ci.jubile.joc.opusprofilemanager.v1.resource;
 
-import ci.jubile.joc.opusprofilemanager.domain.model;
+import ci.jubile.joc.opusprofilemanager.model.Domain;
+import ci.jubile.joc.opusprofilemanager.model.model;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,8 @@ public class FormationResource extends model {
     public String school;
     @Setter @Getter
     public String year;
+    @Setter @Getter
+    public Domain domain;
 
     public FormationResource(String id, String diploma, String school, String year) {
         this.setId(id);

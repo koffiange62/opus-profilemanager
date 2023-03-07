@@ -1,6 +1,6 @@
 package ci.jubile.joc.opusprofilemanager.v1.repository;
 
-import ci.jubile.joc.opusprofilemanager.domain.Password;
+import ci.jubile.joc.opusprofilemanager.model.Password;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

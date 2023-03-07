@@ -1,6 +1,6 @@
 package ci.jubile.joc.opusprofilemanager.v1.mapper;
 
-import ci.jubile.joc.opusprofilemanager.domain.Profile;
+import ci.jubile.joc.opusprofilemanager.model.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

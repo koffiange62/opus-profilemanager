@@ -1,6 +1,6 @@
 package ci.jubile.joc.opusprofilemanager.unittest.v1.service;
 
-import ci.jubile.joc.opusprofilemanager.domain.Profile;
+import ci.jubile.joc.opusprofilemanager.model.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
 import ci.jubile.joc.opusprofilemanager.v1.mapper.ProfileMapper;

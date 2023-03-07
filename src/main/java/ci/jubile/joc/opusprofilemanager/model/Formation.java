@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.domain;
+package ci.jubile.joc.opusprofilemanager.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +9,11 @@ public class Formation extends model{
     @Setter @Getter
     public String school;
     @Setter @Getter
-    public String year;
+    public Integer year;
+    @Setter @Getter
+    public Domain domain;
 
-    public Formation(String id, String diploma, String school, String year) {
+    public Formation(String id, String diploma, String school, Integer year) {
         this.setId(id);
         this.diploma = diploma;
         this.school = school;

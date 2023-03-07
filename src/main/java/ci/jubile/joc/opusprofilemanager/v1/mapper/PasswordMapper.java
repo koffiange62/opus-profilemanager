@@ -1,6 +1,6 @@
 package ci.jubile.joc.opusprofilemanager.v1.mapper;
 
-import ci.jubile.joc.opusprofilemanager.domain.Password;
+import ci.jubile.joc.opusprofilemanager.model.Password;
 import ci.jubile.joc.opusprofilemanager.v1.resource.PasswordResource;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
