@@ -82,6 +82,13 @@ public class ProfileServiceImpl implements ProfileService{
         if(!oldProfile.getAddress().equals(newOne.getAddress())) oldProfile.setAddress(newOne.getAddress());
         if(!oldProfile.getStatus().equals(newOne.getStatus())) oldProfile.setStatus(newOne.getStatus());
         if(!oldProfile.getCreatedAt().equals(newOne.getCreatedAt())) oldProfile.setCreatedAt(oldProfile.getCreatedAt());
+
+        if(!oldProfile.getFormations().equals(newOne.getFormations())) oldProfile.setFormations(newOne.getFormations());
+        if(!oldProfile.getCompetences().equals(newOne.getCompetences())) oldProfile.setCompetences(newOne.getCompetences());
+        if(!oldProfile.getExperiences().equals(newOne.getExperiences())) oldProfile.setExperiences(newOne.getExperiences());
+
         oldProfile.setUpdatedAt(LocalDateTime.now());
     }
+
+
 }

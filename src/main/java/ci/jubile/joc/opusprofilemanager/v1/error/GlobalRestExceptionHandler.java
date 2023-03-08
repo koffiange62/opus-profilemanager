@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 
 
 @ControllerAdvice
-public class CostumRestExceptionHandler{
+public class GlobalRestExceptionHandler {
     @ExceptionHandler({NoSuchElementException.class})
     public ResponseEntity<Object> handleNotFound(Exception ex){
         ApiErrorResource apiErrorResource = new ApiErrorResource("opus.internal.error.message",

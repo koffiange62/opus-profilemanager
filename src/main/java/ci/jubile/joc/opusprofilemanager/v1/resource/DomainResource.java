@@ -1,13 +1,12 @@
 package ci.jubile.joc.opusprofilemanager.v1.resource;
 
-import ci.jubile.joc.opusprofilemanager.model.model;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class DomainResource extends model {
+public class DomainResource{
     @Setter @Getter
     @NotBlank(message = "This field is mandatory")
     @Size(min = 3, max = 3, message = "Must contain only 3 caracters")
