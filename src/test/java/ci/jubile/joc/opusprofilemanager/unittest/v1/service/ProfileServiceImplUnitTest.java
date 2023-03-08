@@ -5,7 +5,6 @@ import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
 import ci.jubile.joc.opusprofilemanager.v1.mapper.ProfileMapper;
 import ci.jubile.joc.opusprofilemanager.v1.repository.ProfileRepository;
-import ci.jubile.joc.opusprofilemanager.v1.resource.PasswordResource;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
 import ci.jubile.joc.opusprofilemanager.v1.service.PasswordServiceImpl;
 import ci.jubile.joc.opusprofilemanager.v1.service.ProfileServiceImpl;
@@ -19,7 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -44,7 +42,7 @@ class ProfileServiceImplUnitTest {
         Profile profile = this.profileBuilder();
         Mockito.when(profileRepository.insert(Mockito.any(Profile.class))).thenReturn(profile);
 
-        profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
+        profileService = new ProfileServiceImpl(profileRepository);
         Profile createdProfile = profileService.create(profile);
 
         Assert.notNull(createdProfile, "Profile non cree ");
@@ -57,7 +55,7 @@ class ProfileServiceImplUnitTest {
     void givenProfile_whenProfileEmailAlreadyExist_thenThrowIllegalArgumentException(){
         Profile profile = this.profileBuilder();
         Mockito.when(profileRepository.existsProfileByEmail(Mockito.anyString())).thenReturn(true);
-        profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
+        profileService = new ProfileServiceImpl(profileRepository);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.create(profile));
     }
@@ -93,7 +91,7 @@ class ProfileServiceImplUnitTest {
         Profile profile = profileBuilder();
         Mockito.when(profileMapper.profileResourceToProfile(Mockito.any(ProfileResource.class))).thenReturn(profile);
         Mockito.when(profileRepository.findById(Mockito.any())).thenThrow(IllegalArgumentException.class);
-        profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
+        profileService = new ProfileServiceImpl(profileRepository);
         Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.update(profile));
     }
 
@@ -102,7 +100,7 @@ class ProfileServiceImplUnitTest {
     void givenId_whenIdFound_thenReturnProfile() throws ProfileNotFoundException {
         Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.of(profileBuilder()));
         Mockito.when(profileMapper.profileToProfileResource(Mockito.any())).thenReturn(profileResourceBuilder());
-        profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
+        profileService = new ProfileServiceImpl(profileRepository);
         Profile profile = profileService.findById(ID);
 
         Assertions.assertNotNull(profile);
@@ -112,7 +110,7 @@ class ProfileServiceImplUnitTest {
     @DisplayName(value = "findById() : test if ProfileNotFoundException is thrown when id is not found")
     void givenId_whenIdNotFound_thenThrowProfileNotFoundException() {
         Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
-        profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
+        profileService = new ProfileServiceImpl(profileRepository);
 
         Assertions.assertThrows(ProfileNotFoundException.class, () -> profileService.findById(ID));
     }
@@ -121,7 +119,7 @@ class ProfileServiceImplUnitTest {
     @DisplayName(value = "enableOrDisableProfile() : test ThrowProfileNotFoundException")
     void givenIdAndProfileStatus_whenIdNotFound_thenThrowProfileNotFoundException(){
         Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
-        profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
+        profileService = new ProfileServiceImpl(profileRepository);
 
         Assertions.assertThrows(ProfileNotFoundException.class, () -> profileService.enableOrDisableProfile(ID, ProfileStatus.ENABLE));
     }
@@ -137,7 +135,7 @@ class ProfileServiceImplUnitTest {
             Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
             Mockito.when(profileRepository.insert(Mockito.any(Profile.class))).thenReturn(profile);
         }
-        profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
+        profileService = new ProfileServiceImpl(profileRepository);
     }
 
     private ProfileResource profileResourceBuilder(){

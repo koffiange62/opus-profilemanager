@@ -23,14 +23,14 @@ public class ProfileResource {
     private LocalDateTime updatedAt;
     @Getter @Setter
     @NotBlank(message = "Can not be blank or null")
-    @Size(min = 3, max = 16, message = "Must have at least 3 and less than 17 caraters")
+    @Size(min = 3, max = 16, message = "Must have at least 3 and less than 16 caraters")
     private String lastName;
     @Getter @Setter
     @NotBlank(message = "Can not be blank or null")
-    @Size(min = 3, max = 16, message = "Must have at least 3 and less than 17 caraters")
+    @Size(min = 3, max = 16, message = "Must have at least 3 and less than 20 caraters")
     private String firstName;
     @Getter @Setter
-    @Email(message = "Must be qn emqil address")
+    @Email(message = "Must be an email address")
     private String email;
     @Getter @Setter
     @Size(min = 8, max = 12, message = "Must have at least 8 and less than 12 caraters")
