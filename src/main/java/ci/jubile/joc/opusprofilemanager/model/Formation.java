@@ -3,17 +3,19 @@ package ci.jubile.joc.opusprofilemanager.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Year;
+
 public class Formation extends model{
     @Setter @Getter
     public String diploma;
     @Setter @Getter
     public String school;
     @Setter @Getter
-    public Integer year;
+    public Year year;
     @Setter @Getter
     public Domain domain;
 
-    public Formation(String id, String diploma, String school, Integer year) {
+    public Formation(String id, String diploma, String school, Year year) {
         this.setId(id);
         this.diploma = diploma;
         this.school = school;

@@ -13,5 +13,6 @@ public interface ProfileMapper {
     @Mapping(target = "formations", ignore = true)
     @Mapping(target = "experiences", ignore = true)
     @Mapping(target = "competences", ignore = true)
-    Profile profileResourceToProfile(ProfileResource profile);
+    @Mapping(target = "status", ignore = true)
+    Profile profileResourceToProfile(ProfileResource profileResource);
 }
