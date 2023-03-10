@@ -23,7 +23,7 @@ public class FormationController {
 
     @GetMapping("/formation/profile/{profileId}")
     ResponseEntity<List<FormationResource>> listFormation(@PathVariable(name = "profileId") String profileId) {
-        List<Formation> formationList = formationService.listFormation(profileId);
+        List<Formation> formationList = formationService.findAll(profileId);
         List<FormationResource> formationResourceList = formationMapper.formationListToResourceList(formationList);
         return ResponseEntity.ok(formationResourceList);
     }
@@ -32,7 +32,7 @@ public class FormationController {
     ResponseEntity<FormationResource> addFormation(@PathVariable(name = "profileId") String profileId,
                                                    @RequestBody FormationResource formationResource){
         Formation formation = formationMapper.formationResourceToFormation(formationResource);
-        formation = formationService.addFormation(profileId, formation);
+        formation = formationService.add(profileId, formation);
         FormationResource response =  formationMapper.formationToFormationResource(formation);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -41,7 +41,7 @@ public class FormationController {
     ResponseEntity<FormationResource> updateFormation(@PathVariable(name = "profileId") String profileId,
                                                       @RequestBody FormationResource formationResource){
         Formation formation = formationMapper.formationResourceToFormation(formationResource);
-        formation = formationService.updateFormation(profileId, formation);
+        formation = formationService.update(profileId, formation);
         FormationResource response = formationMapper.formationToFormationResource(formation);
         return ResponseEntity.ok(response);
     }
@@ -49,7 +49,7 @@ public class FormationController {
     @DeleteMapping("/formation")
     ResponseEntity<?> deleteFormation(@RequestParam(name = "profileId") String profileId,
                                       @RequestParam(name = "formationId") String formationId){
-        formationService.deleteFormation(profileId, formationId);
+        formationService.delete(profileId, formationId);
         return ResponseEntity.noContent().build();
     }
 }

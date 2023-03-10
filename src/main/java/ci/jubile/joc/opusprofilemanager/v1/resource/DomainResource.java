@@ -5,8 +5,17 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 public class DomainResource{
+
+    @Getter @Setter
+    private String id;
+    @Getter @Setter
+    private LocalDateTime createdAt;
+    @Getter @Setter
+    private LocalDateTime updatedAt;
+
     @Setter @Getter
     @NotBlank(message = "This field is mandatory")
     @Size(min = 3, max = 3, message = "Must contain only 3 caracters")

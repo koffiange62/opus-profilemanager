@@ -13,11 +13,14 @@ public class Formation extends model{
     @Setter @Getter
     public Domain domain;
 
-    public Formation(String id, String diploma, String school, Integer year) {
-        this.setId(id);
+    public Formation() {
+    }
+
+    public Formation(String diploma, String school, Integer year, Domain domain) {
         this.diploma = diploma;
         this.school = school;
         this.year = year;
+        this.domain = domain;
     }
 
     @Override

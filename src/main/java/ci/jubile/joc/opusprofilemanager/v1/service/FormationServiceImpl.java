@@ -20,7 +20,7 @@ public class FormationServiceImpl implements ProfilePropertiesService<Formation>
     }
 
     @Override
-    public Formation addFormation(String idProfile, Formation formation) {
+    public Formation add(String idProfile, Formation formation) {
         try {
             Profile profile = profileService.findById(idProfile);
             formation.setId(UUID.randomUUID().toString());
@@ -35,12 +35,15 @@ public class FormationServiceImpl implements ProfilePropertiesService<Formation>
     }
 
     @Override
-    public Formation updateFormation(String idProfile, Formation formation) {
+    public Formation update(String idProfile, Formation formation) {
+
         try {
             Profile profile = profileService.findById(idProfile);
             List<Formation> formationList = profile.getFormations();
             Optional<Formation> oldFormationOptional = formationList.stream().filter(f -> f.getId().equals(formation.getId())).findFirst();
-            oldFormationOptional.ifPresent(oldFormation -> {
+            Formation oldFormation = null;
+            if (oldFormationOptional.isPresent()) {
+                oldFormation = oldFormationOptional.get();
                 oldFormation.setId(oldFormation.getId());
                 oldFormation.setCreatedAt(oldFormation.getCreatedAt());
                 oldFormation.setUpdatedAt(LocalDateTime.now());
@@ -50,16 +53,16 @@ public class FormationServiceImpl implements ProfilePropertiesService<Formation>
                 if (!oldFormation.getDomain().equals(formation.getDomain())) oldFormation.setDomain(formation.getDomain());
                 profile.getFormations().removeIf(f -> f.getId().equals(formation.getId()));
                 profile.getFormations().add(oldFormation);
-            });
-            profileService.update(profile);
+                profileService.update(profile);
+            }
+            return oldFormation;
         } catch (ProfileNotFoundException e) {
             throw new NoSuchElementException(e);
         }
-        return formation;
     }
 
     @Override
-    public void deleteFormation(String idProfile, String formationId) {
+    public void delete(String idProfile, String formationId) {
         try {
             Profile profile = profileService.findById(idProfile);
             profile.getFormations().removeIf(f -> f.getId().equals(formationId));
@@ -70,7 +73,7 @@ public class FormationServiceImpl implements ProfilePropertiesService<Formation>
     }
 
     @Override
-    public List<Formation> listFormation(String idProfile) {
+    public List<Formation> findAll(String idProfile) {
         try {
             Profile profile = profileService.findById(idProfile);
             return profile.getFormations();

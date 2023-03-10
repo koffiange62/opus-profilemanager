@@ -151,7 +151,6 @@ class ProfileServiceImplUnitTest {
                 .password("test123")
                 .phoneNumber("5144341118")
                 .province("Quebec")
-                .status(ProfileStatus.ENABLE)
                 .createdAt(LocalDateTime.now())
                 .build();
     }
