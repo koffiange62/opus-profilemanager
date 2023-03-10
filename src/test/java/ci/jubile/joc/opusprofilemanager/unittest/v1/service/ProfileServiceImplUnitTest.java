@@ -18,6 +18,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -27,6 +29,7 @@ class ProfileServiceImplUnitTest {
 
     @MockBean
     static ProfileRepository profileRepository;
+
     @MockBean
     static ProfileMapper profileMapper;
 
@@ -38,66 +41,60 @@ class ProfileServiceImplUnitTest {
     @Test
     @DisplayName(value = "create() : test profile creation")
     void givenProfile_whenNewProfile_thenCreateProfile() {
-        ProfileResource profileResource = this.profileResourceBuilder();
         Profile profile = this.profileBuilder();
-        Mockito.when(profileMapper.profileResourceToProfile(Mockito.any(ProfileResource.class))).thenReturn(profile);
         Mockito.when(profileRepository.insert(Mockito.any(Profile.class))).thenReturn(profile);
-        Mockito.when(profileMapper.profileToProfileResource(Mockito.any(Profile.class))).thenReturn(profileResource);
-        Mockito.doNothing().when(passwordService).create(Mockito.any(PasswordResource.class));
 
         profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
-        profileResource = profileService.create(profileResource);
+        Profile createdProfile = profileService.create(profile);
 
-        Assert.notNull(profileResource, "Profile non cree ");
-        Assert.isInstanceOf(ProfileResource.class, profileResource);
+        Assert.notNull(createdProfile, "Profile non cree ");
+        Assert.isInstanceOf(Profile.class, createdProfile);
     }
 
 
     @Test
     @DisplayName(value = "create() : test ThrowIllegalArgumentException when profile email already exist")
     void givenProfile_whenProfileEmailAlreadyExist_thenThrowIllegalArgumentException(){
-        ProfileResource profileResource = this.profileResourceBuilder();
+        Profile profile = this.profileBuilder();
         Mockito.when(profileRepository.existsProfileByEmail(Mockito.anyString())).thenReturn(true);
         profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.create(profileResource));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.create(profile));
     }
 
     @Test
     @DisplayName(value = "update() : test if update make a save when Profile already exist")
     void givenProfileResource_whenExist_thenUpdateMakeSave() {
-        ProfileResource profileResource = this.profileResourceBuilder();
         Profile profile = this.profileBuilder();
+        ProfileResource profileResource = profileResourceBuilder();
         updateArrangePart(true, profileResource, profile);
-
-        ProfileResource updated = profileService.update(profileResource);
+        Profile updatedProfile = profileService.update(profile);
 
         Mockito.verify(profileRepository, Mockito.times(1)).save(Mockito.any(Profile.class));
-        Assertions.assertNotNull(updated);
+        Assertions.assertNotNull(updatedProfile);
     }
 
     @Test
     @DisplayName(value = "update() : test if update make a insert when Profile not already exist")
     void givenProfileResource_whenIdNotExist_thenUpdateMakeInsert() {
-        ProfileResource profileResource = profileResourceBuilder();
         Profile profile = profileBuilder();
+        ProfileResource profileResource = profileResourceBuilder();
         updateArrangePart(false, profileResource, profile);
 
-        ProfileResource updated = profileService.update(profileResource);
+        Profile updatedProfile = profileService.update(profile);
 
         Mockito.verify(profileRepository, Mockito.times(1)).insert(Mockito.any(Profile.class));
-        Assertions.assertNotNull(updated);
+        Assertions.assertNotNull(updatedProfile);
     }
 
     @Test
     @DisplayName(value = "update() : test if update throws IllegalArgumentException when Profile id is null")
     void givenIdAndProfileResource_whenIdIsNull_thenThrowIllegalArgumentException() {
         Profile profile = profileBuilder();
-        ProfileResource profileResource = profileResourceBuilder();
         Mockito.when(profileMapper.profileResourceToProfile(Mockito.any(ProfileResource.class))).thenReturn(profile);
         Mockito.when(profileRepository.findById(Mockito.any())).thenThrow(IllegalArgumentException.class);
         profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.update(profileResource));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.update(profile));
     }
 
     @Test
@@ -106,9 +103,9 @@ class ProfileServiceImplUnitTest {
         Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.of(profileBuilder()));
         Mockito.when(profileMapper.profileToProfileResource(Mockito.any())).thenReturn(profileResourceBuilder());
         profileService = new ProfileServiceImpl(profileRepository, passwordService, profileMapper);
-        ProfileResource profileResource = profileService.findById(ID);
+        Profile profile = profileService.findById(ID);
 
-        Assertions.assertNotNull(profileResource);
+        Assertions.assertNotNull(profile);
     }
 
     @Test
@@ -157,12 +154,15 @@ class ProfileServiceImplUnitTest {
                 .phoneNumber("5144341118")
                 .province("Quebec")
                 .status(ProfileStatus.ENABLE)
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
     private Profile profileBuilder(){
-        return new Profile("gqgjgdf", "koffi", "ange", "koffiange62@gmail.com",
+        Profile profile = new Profile("gqgjgdf", "koffi", "ange", "koffiange62@gmail.com",
                 "5144341118",  "Canada", "Quebec",
                 "Montreal", "Montreal", "Av Walklay", "2325");
+        profile.setCreatedAt(LocalDateTime.now());
+        return profile;
     }
 }
