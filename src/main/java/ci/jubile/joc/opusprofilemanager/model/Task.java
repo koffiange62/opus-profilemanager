@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.domain;
+package ci.jubile.joc.opusprofilemanager.model;
 
 import lombok.Getter;
 import lombok.Setter;

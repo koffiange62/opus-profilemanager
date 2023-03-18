@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "e804db41-ce54-4d0b-98d0-1fab677eaa12",
+		"name": "Profile Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6243970"
+	},
+	"item": [
+		{
+			"name": "Errors Handling",
+			"item": [
+				{
+					"name": "field validation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastName\": \"Thérèse\",\r\n    \"firstName\": \"Brou Konan rigobertine\",\r\n    \"email\": \"bk.therese@gmail.com\",\r\n    \"phoneNumber\": \"+15147874341\",\r\n    \"password\": \"*123*\",\r\n    \"country\": \"Cote d'Ivoire\",\r\n    \"province\": \"Abidjan\",\r\n    \"city\": \"Abidjan\",\r\n    \"district\": \"Abidjan\",\r\n    \"street\": \"\",\r\n    \"address\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basePath}}/v1/profiles/profile",
+							"host": [
+								"{{basePath}}"
+							],
+							"path": [
+								"v1",
+								"profiles",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile already exist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastName\": \"Therese\",\r\n    \"firstName\": \"Brou\",\r\n    \"email\": \"b.therese@gmail.com\",\r\n    \"phoneNumber\": \"+15147874341\",\r\n    \"password\": \"*123*\",\r\n    \"country\": \"Cote d'Ivoire\",\r\n    \"province\": \"Abidjan\",\r\n    \"city\": \"Abidjan\",\r\n    \"district\": \"Abidjan\",\r\n    \"street\": \"\",\r\n    \"address\": \"\",\r\n    \"status\": \"ENABLE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basePath}}/v1/profiles/profile",
+							"host": [
+								"{{basePath}}"
+							],
+							"path": [
+								"v1",
+								"profiles",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateProfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"lastName\": \"Therese\",\r\n    \"firstName\": \"Brou\",\r\n    \"email\": \"b.therese@gmail.com\",\r\n    \"phoneNumber\": \"+15147874341\",\r\n    \"password\": \"*123*\",\r\n    \"country\": \"Cote d'Ivoire\",\r\n    \"province\": \"Abidjan\",\r\n    \"city\": \"Abidjan\",\r\n    \"district\": \"Abidjan\",\r\n    \"street\": \"\",\r\n    \"address\": \"\",\r\n    \"status\": \"ENABLE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basePath}}/v1/profiles/profile",
+					"host": [
+						"{{basePath}}"
+					],
+					"path": [
+						"v1",
+						"profiles",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProfileById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{basePath}}/v1/profiles/profile/63c63312271c1e4eda752f64",
+					"host": [
+						"{{basePath}}"
+					],
+					"path": [
+						"v1",
+						"profiles",
+						"profile",
+						"63c63312271c1e4eda752f64"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpateProfile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"63c63312271c1e4eda752f64\",\r\n    \"createdAt\": \"2023-01-17T00:33:00.116746\",\r\n    \"updatedAt\": null,\r\n    \"lastName\": \"Ahou Bénédicte\",\r\n    \"firstName\": \"Kouamé\",\r\n    \"email\": \"m.benedictek77@gmail.com\",\r\n    \"phoneNumber\": \"+15147874341\",\r\n    \"password\": \"123456\",\r\n    \"country\": \"Canada\",\r\n    \"province\": \"Quebec\",\r\n    \"city\": \"Montreal\",\r\n    \"district\": \"NDG\",\r\n    \"street\": \"avenue Walkley\",\r\n    \"address\": \"2325\",\r\n    \"status\": \"DISABLE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basePath}}/v1/profiles/profile",
+					"host": [
+						"{{basePath}}"
+					],
+					"path": [
+						"v1",
+						"profiles",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditPassword",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"profileId\": \"63c9c5c923751d58e2b7bc55\",\r\n    \"currentPassword\": \"*bouYakaTchaO*!\",\r\n    \"newPassword\": \"*bouYakaTcha*!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basePath}}/v1/password/edit",
+					"host": [
+						"{{basePath}}"
+					],
+					"path": [
+						"v1",
+						"password",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProfileEnablingOrDesabling",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"62e7395fa9b7c77259bf8caa\",\r\n    \"createdAt\": null,\r\n    \"updatedAt\": null,\r\n    \"lastName\": \"Ange\",\r\n    \"firstName\": \"Koffi\",\r\n    \"email\": \"koffiange62@gmail.com\",\r\n    \"phoneNumber\": \"+15144341118\",\r\n    \"password\": null,\r\n    \"country\": \"CAD\",\r\n    \"province\": \"Quebec\",\r\n    \"city\": \"Montreal\",\r\n    \"district\": \"NDG\",\r\n    \"street\": \"avenue Walkley\",\r\n    \"address\": \"2325\",\r\n    \"status\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basePath}}/v1/profiles/profile/enabling-or-desabling/62e7395fa9b7c77259bf8caa",
+					"host": [
+						"{{basePath}}"
+					],
+					"path": [
+						"v1",
+						"profiles",
+						"profile",
+						"enabling-or-desabling",
+						"62e7395fa9b7c77259bf8caa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllProfile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{basePath}}/v1/profiles",
+					"host": [
+						"{{basePath}}"
+					],
+					"path": [
+						"v1",
+						"profiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13.58.77.241:8080/opus-profile-manager/v1/profiles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "13.58.77.241:8080/opus-profile-manager/v1/profiles",
+					"host": [
+						"13",
+						"58",
+						"77",
+						"241"
+					],
+					"port": "8080",
+					"path": [
+						"opus-profile-manager",
+						"v1",
+						"profiles"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

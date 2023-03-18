@@ -1,6 +1,5 @@
 package ci.jubile.joc.opusprofilemanager.v1.resource;
 
-import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,39 +21,37 @@ public class ProfileResource {
     @Getter @Setter
     private LocalDateTime updatedAt;
     @Getter @Setter
-    @NotBlank(message = "Can not be blank or null")
-    @Size(min = 3, max = 16, message = "Must have at least 3 and less than 17 caraters")
+    @NotBlank(message = "This field is mandatory")
+    @Size(min = 3, max = 16, message = "Must have at least 3 and less than 16 caracters")
     private String lastName;
     @Getter @Setter
-    @NotBlank(message = "Can not be blank or null")
-    @Size(min = 3, max = 16, message = "Must have at least 3 and less than 17 caraters")
+    @NotBlank(message = "This field is mandatory")
+    @Size(min = 3, max = 16, message = "Must have at least 3 and less than 20 caracters")
     private String firstName;
     @Getter @Setter
-    @Email(message = "Must be qn emqil address")
+    @Email(message = "Must be an email address")
     private String email;
     @Getter @Setter
-    @Size(min = 8, max = 12, message = "Must have at least 8 and less than 12 caraters")
+    @Size(min = 8, max = 12, message = "Must have at least 8 and less than 12 caracters")
     private String phoneNumber;
     @Getter @Setter
-    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caracters")
     private String country; // pays
     @Getter @Setter
-    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caracters")
     private String province; // region
     @Getter @Setter
-    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caracters")
     private String city; // ville
     @Getter @Setter
-    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Size(min = 3, max = 20, message = "Must have at least 3 and less than 20 caracters")
     private String district; // quartier
     @Getter @Setter
-    @Size(max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Size(max = 20, message = "Must have at least 3 and less than 20 caracters")
     private String street; // rue
     @Getter @Setter
-    @Size(max = 20, message = "Must have at least 3 and less than 20 caraters")
+    @Size(max = 20, message = "Must have at least 3 and less than 20 caracters")
     private String address; // adresse
-    @Getter @Setter
-    private ProfileStatus status;
     @Getter @Setter
     private String password;
 

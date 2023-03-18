@@ -1,6 +1,6 @@
 package ci.jubile.joc.opusprofilemanager.v1.mapper;
 
-import ci.jubile.joc.opusprofilemanager.domain.Profile;
+import ci.jubile.joc.opusprofilemanager.model.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,5 +13,6 @@ public interface ProfileMapper {
     @Mapping(target = "formations", ignore = true)
     @Mapping(target = "experiences", ignore = true)
     @Mapping(target = "competences", ignore = true)
-    Profile profileResourceToProfile(ProfileResource profile);
+    @Mapping(target = "status", ignore = true)
+    Profile profileResourceToProfile(ProfileResource profileResource);
 }

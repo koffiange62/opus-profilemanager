@@ -1,6 +1,6 @@
 package ci.jubile.joc.opusprofilemanager.v1.service;
 
-import ci.jubile.joc.opusprofilemanager.domain.Password;
+import ci.jubile.joc.opusprofilemanager.model.Password;
 import ci.jubile.joc.opusprofilemanager.util.PasswordEncoderUtil;
 import ci.jubile.joc.opusprofilemanager.v1.exception.PasswordHandlerException;
 import ci.jubile.joc.opusprofilemanager.v1.repository.PasswordRepository;

@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.domain;
+package ci.jubile.joc.opusprofilemanager.model;
 
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import lombok.Getter;
@@ -8,6 +8,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Profile extends model {
@@ -47,11 +48,11 @@ public class Profile extends model {
     private ProfileStatus status = ProfileStatus.ENABLE;
 
     @Getter @Setter
-    private List<Formation> formations;
+    private List<Formation> formations = new ArrayList<>();
     @Getter @Setter
-    private List<Experience> experiences;
+    private List<Experience> experiences = new ArrayList<>();
     @Getter @Setter
-    private List<Competence> competences;
+    private List<Competence> competences = new ArrayList<>();
 
     public Profile() {
     }

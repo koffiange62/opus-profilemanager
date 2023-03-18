@@ -1,7 +1,7 @@
 package ci.jubile.joc.opusprofilemanager.v1.resource;
 
-import ci.jubile.joc.opusprofilemanager.domain.Task;
-import ci.jubile.joc.opusprofilemanager.domain.model;
+import ci.jubile.joc.opusprofilemanager.model.Task;
+import ci.jubile.joc.opusprofilemanager.model.model;
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ContractType;
 import lombok.Getter;
 import lombok.Setter;
