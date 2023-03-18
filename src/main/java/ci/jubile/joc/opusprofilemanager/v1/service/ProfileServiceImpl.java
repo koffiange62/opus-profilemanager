@@ -1,22 +1,16 @@
 package ci.jubile.joc.opusprofilemanager.v1.service;
 
-import ci.jubile.joc.opusprofilemanager.domain.Profile;
+import ci.jubile.joc.opusprofilemanager.model.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
-import ci.jubile.joc.opusprofilemanager.v1.mapper.ProfileMapper;
 import ci.jubile.joc.opusprofilemanager.v1.repository.ProfileRepository;
-import ci.jubile.joc.opusprofilemanager.v1.resource.PasswordResource;
-import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -25,14 +19,8 @@ public class ProfileServiceImpl implements ProfileService{
 
     private final ProfileRepository profileRepository;
 
-    private final PasswordServiceImpl passwordService;
-
-    private final ProfileMapper profileMapper;
-
-    public ProfileServiceImpl(ProfileRepository profileRepository, PasswordServiceImpl passwordService, ProfileMapper profileMapper) {
+    public ProfileServiceImpl(ProfileRepository profileRepository) {
         this.profileRepository = profileRepository;
-        this.passwordService = passwordService;
-        this.profileMapper = profileMapper;
     }
 
     @Override
@@ -94,6 +82,13 @@ public class ProfileServiceImpl implements ProfileService{
         if(!oldProfile.getAddress().equals(newOne.getAddress())) oldProfile.setAddress(newOne.getAddress());
         if(!oldProfile.getStatus().equals(newOne.getStatus())) oldProfile.setStatus(newOne.getStatus());
         if(!oldProfile.getCreatedAt().equals(newOne.getCreatedAt())) oldProfile.setCreatedAt(oldProfile.getCreatedAt());
+
+        if(!oldProfile.getFormations().equals(newOne.getFormations())) oldProfile.setFormations(newOne.getFormations());
+        if(!oldProfile.getCompetences().equals(newOne.getCompetences())) oldProfile.setCompetences(newOne.getCompetences());
+        if(!oldProfile.getExperiences().equals(newOne.getExperiences())) oldProfile.setExperiences(newOne.getExperiences());
+
         oldProfile.setUpdatedAt(LocalDateTime.now());
     }
+
+
 }

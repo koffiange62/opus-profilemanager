@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.domain;
+package ci.jubile.joc.opusprofilemanager.model;
 
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.CompetenceType;
 import lombok.Getter;
