@@ -10,7 +10,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface FormationMapper {
 
-
     @Mapping(target = "domain.id", source = "domain.id", ignore = true)
     @Mapping(target = "domain.createdAt", source = "domain.createdAt", ignore = true)
     @Mapping(target = "domain.updatedAt", source = "domain.updatedAt", ignore = true)
