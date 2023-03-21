@@ -3,6 +3,7 @@ package ci.jubile.joc.opusprofilemanager.v1.controller;
 import ci.jubile.joc.opusprofilemanager.v1.exception.PasswordHandlerException;
 import ci.jubile.joc.opusprofilemanager.v1.resource.PasswordResource;
 import ci.jubile.joc.opusprofilemanager.v1.service.PasswordServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
