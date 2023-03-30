@@ -70,4 +70,10 @@ public class ProfileController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("profile/{id}")
+    public ResponseEntity<?> delete(@PathVariable(name = "id") String id){
+        profileServiceImpl.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

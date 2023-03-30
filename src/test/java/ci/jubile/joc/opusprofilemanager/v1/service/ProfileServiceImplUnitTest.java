@@ -40,7 +40,7 @@ class ProfileServiceImplUnitTest {
         Profile profile = this.profileBuilder();
         Mockito.when(profileRepository.insert(Mockito.any(Profile.class))).thenReturn(profile);
 
-        profileService = new ProfileServiceImpl(profileRepository);
+        profileService = new ProfileServiceImpl(profileRepository, passwordService);
         Profile createdProfile = profileService.create(profile);
 
         Assert.notNull(createdProfile, "Profile non cree ");
@@ -53,7 +53,7 @@ class ProfileServiceImplUnitTest {
     void givenProfile_whenProfileEmailAlreadyExist_thenThrowIllegalArgumentException(){
         Profile profile = this.profileBuilder();
         Mockito.when(profileRepository.existsProfileByEmail(Mockito.anyString())).thenReturn(true);
-        profileService = new ProfileServiceImpl(profileRepository);
+        profileService = new ProfileServiceImpl(profileRepository, passwordService);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.create(profile));
     }
@@ -89,7 +89,7 @@ class ProfileServiceImplUnitTest {
         Profile profile = profileBuilder();
         Mockito.when(profileMapper.profileResourceToProfile(Mockito.any(ProfileResource.class))).thenReturn(profile);
         Mockito.when(profileRepository.findById(Mockito.any())).thenThrow(IllegalArgumentException.class);
-        profileService = new ProfileServiceImpl(profileRepository);
+        profileService = new ProfileServiceImpl(profileRepository, passwordService);
         Assertions.assertThrows(IllegalArgumentException.class, () -> profileService.update(profile));
     }
 
@@ -98,7 +98,7 @@ class ProfileServiceImplUnitTest {
     void givenId_whenIdFound_thenReturnProfile() throws ProfileNotFoundException {
         Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.of(profileBuilder()));
         Mockito.when(profileMapper.profileToProfileResource(Mockito.any())).thenReturn(profileResourceBuilder());
-        profileService = new ProfileServiceImpl(profileRepository);
+        profileService = new ProfileServiceImpl(profileRepository, passwordService);
         Profile profile = profileService.findById(ID);
 
         Assertions.assertNotNull(profile);
@@ -108,7 +108,7 @@ class ProfileServiceImplUnitTest {
     @DisplayName(value = "findById() : test if ProfileNotFoundException is thrown when id is not found")
     void givenId_whenIdNotFound_thenThrowProfileNotFoundException() {
         Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
-        profileService = new ProfileServiceImpl(profileRepository);
+        profileService = new ProfileServiceImpl(profileRepository, passwordService);
 
         Assertions.assertThrows(ProfileNotFoundException.class, () -> profileService.findById(ID));
     }
@@ -117,7 +117,7 @@ class ProfileServiceImplUnitTest {
     @DisplayName(value = "enableOrDisableProfile() : test ThrowProfileNotFoundException")
     void givenIdAndProfileStatus_whenIdNotFound_thenThrowProfileNotFoundException(){
         Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
-        profileService = new ProfileServiceImpl(profileRepository);
+        profileService = new ProfileServiceImpl(profileRepository, passwordService);
 
         Assertions.assertThrows(ProfileNotFoundException.class, () -> profileService.enableOrDisableProfile(ID, ProfileStatus.ENABLE));
     }
@@ -133,7 +133,7 @@ class ProfileServiceImplUnitTest {
             Mockito.when(profileRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
             Mockito.when(profileRepository.insert(Mockito.any(Profile.class))).thenReturn(profile);
         }
-        profileService = new ProfileServiceImpl(profileRepository);
+        profileService = new ProfileServiceImpl(profileRepository, passwordService);
     }
 
     private ProfileResource profileResourceBuilder(){

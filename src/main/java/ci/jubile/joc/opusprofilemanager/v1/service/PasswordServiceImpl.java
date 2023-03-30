@@ -40,6 +40,11 @@ public class PasswordServiceImpl implements PasswordService{
     }
 
     @Override
+    public void deleteByProfile(String id) {
+        passwordRepository.deleteByProfileId(id);
+    }
+
+    @Override
     public void updatePassword(String profileId, String nonEncodedPassword) throws PasswordHandlerException{
         Password password = this.findByProfileId(profileId);
         if (password != null){
