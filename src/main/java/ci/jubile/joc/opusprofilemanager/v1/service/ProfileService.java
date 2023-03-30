@@ -17,4 +17,6 @@ public interface ProfileService {
     Profile findById(String id) throws ProfileNotFoundException;
 
     void enableOrDisableProfile(String id, ProfileStatus status) throws ProfileNotFoundException;
+
+    void deleteById(String id) throws ProfileNotFoundException;
 }

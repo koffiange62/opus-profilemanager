@@ -8,5 +8,7 @@ public interface PasswordService {
 
     Password findByProfileId(String profileId) throws PasswordHandlerException;
 
+    void deleteByProfile(String id);
+
     void updatePassword(String profileId, String nonEncodedPassword) throws PasswordHandlerException;
 }

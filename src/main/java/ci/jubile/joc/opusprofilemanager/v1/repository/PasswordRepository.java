@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface PasswordRepository extends MongoRepository<Password, String> {
     Optional<Password> findByProfileId(String s);
+
+    void deleteByProfileId(String id);
 }

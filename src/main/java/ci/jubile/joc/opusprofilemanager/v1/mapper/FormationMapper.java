@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface FormationMapper {
+
     @Mapping(target = "domain.id", source = "domain.id", ignore = true)
     @Mapping(target = "domain.createdAt", source = "domain.createdAt", ignore = true)
     @Mapping(target = "domain.updatedAt", source = "domain.updatedAt", ignore = true)
@@ -18,5 +19,6 @@ public interface FormationMapper {
     @Mapping(target = "domain.createdAt", source = "domain.createdAt", ignore = true)
     @Mapping(target = "domain.updatedAt", source = "domain.updatedAt", ignore = true)
     Formation formationResourceToFormation(FormationResource formation);
+
     List<FormationResource> formationListToResourceList(List<Formation> formations);
 }
