@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.unittest.v1.service;
+package ci.jubile.joc.opusprofilemanager.v1.service;
 
 import ci.jubile.joc.opusprofilemanager.model.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
@@ -6,8 +6,6 @@ import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
 import ci.jubile.joc.opusprofilemanager.v1.mapper.ProfileMapper;
 import ci.jubile.joc.opusprofilemanager.v1.repository.ProfileRepository;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
-import ci.jubile.joc.opusprofilemanager.v1.service.PasswordServiceImpl;
-import ci.jubile.joc.opusprofilemanager.v1.service.ProfileServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

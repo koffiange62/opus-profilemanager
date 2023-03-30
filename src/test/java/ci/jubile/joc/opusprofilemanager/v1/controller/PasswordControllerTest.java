@@ -1,7 +1,6 @@
-package ci.jubile.joc.opusprofilemanager.unittest.v1.controller;
+package ci.jubile.joc.opusprofilemanager.v1.controller;
 
-import ci.jubile.joc.opusprofilemanager.unittest.v1.utils.ProfileTestUtils;
-import ci.jubile.joc.opusprofilemanager.v1.controller.PasswordController;
+import ci.jubile.joc.opusprofilemanager.v1.utils.ProfileTestUtils;
 import ci.jubile.joc.opusprofilemanager.v1.resource.PasswordResource;
 import ci.jubile.joc.opusprofilemanager.v1.service.PasswordServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;

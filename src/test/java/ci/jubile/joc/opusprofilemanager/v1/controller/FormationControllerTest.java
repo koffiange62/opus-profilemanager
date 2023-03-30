@@ -1,8 +1,7 @@
-package ci.jubile.joc.opusprofilemanager.unittest.v1.controller;
+package ci.jubile.joc.opusprofilemanager.v1.controller;
 
-import ci.jubile.joc.opusprofilemanager.unittest.v1.utils.FormationTestUtils;
-import ci.jubile.joc.opusprofilemanager.unittest.v1.utils.ProfileTestUtils;
-import ci.jubile.joc.opusprofilemanager.v1.controller.FormationController;
+import ci.jubile.joc.opusprofilemanager.v1.utils.FormationTestUtils;
+import ci.jubile.joc.opusprofilemanager.v1.utils.ProfileTestUtils;
 import ci.jubile.joc.opusprofilemanager.v1.mapper.FormationMapper;
 import ci.jubile.joc.opusprofilemanager.v1.service.FormationServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;

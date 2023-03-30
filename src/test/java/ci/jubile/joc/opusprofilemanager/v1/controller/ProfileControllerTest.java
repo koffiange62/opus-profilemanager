@@ -1,8 +1,7 @@
-package ci.jubile.joc.opusprofilemanager.unittest.v1.controller;
+package ci.jubile.joc.opusprofilemanager.v1.controller;
 
 import ci.jubile.joc.opusprofilemanager.model.Profile;
-import ci.jubile.joc.opusprofilemanager.unittest.v1.utils.ProfileTestUtils;
-import ci.jubile.joc.opusprofilemanager.v1.controller.ProfileController;
+import ci.jubile.joc.opusprofilemanager.v1.utils.ProfileTestUtils;
 import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import ci.jubile.joc.opusprofilemanager.v1.mapper.ProfileMapper;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;

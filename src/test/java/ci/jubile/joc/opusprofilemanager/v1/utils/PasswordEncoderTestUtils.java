@@ -1,15 +1,15 @@
-package ci.jubile.joc.opusprofilemanager.unittest.v1.utils;
+package ci.jubile.joc.opusprofilemanager.v1.utils;
 
-import ci.jubile.joc.opusprofilemanager.util.PasswordEncoderUtil;
+import ci.jubile.joc.opusprofilemanager.v1.util.PasswordEncoderUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
-class PasswordEncoderTestUtils {
+class PasswordEncoderUtilsTest {
 
     @Test
     void bcryptPasswordEncode(){

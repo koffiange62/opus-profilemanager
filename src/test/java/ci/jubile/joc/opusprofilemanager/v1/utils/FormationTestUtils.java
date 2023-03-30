@@ -1,4 +1,4 @@
-package ci.jubile.joc.opusprofilemanager.unittest.v1.utils;
+package ci.jubile.joc.opusprofilemanager.v1.utils;
 
 import ci.jubile.joc.opusprofilemanager.model.Domain;
 import ci.jubile.joc.opusprofilemanager.model.Formation;
