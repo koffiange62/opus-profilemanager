@@ -5,7 +5,7 @@ import ci.jubile.joc.opusprofilemanager.v1.enumeration.ProfileStatus;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
 import ci.jubile.joc.opusprofilemanager.v1.mapper.ProfileMapper;
 import ci.jubile.joc.opusprofilemanager.v1.resource.ProfileResource;
-import ci.jubile.joc.opusprofilemanager.v1.service.PasswordService;
+import ci.jubile.joc.opusprofilemanager.v1.service.PasswordServiceImpl;
 import ci.jubile.joc.opusprofilemanager.v1.service.ProfileServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,9 +23,9 @@ public class ProfileController {
 
     private final ProfileServiceImpl profileServiceImpl;
     private final ProfileMapper profileMapper;
-    private final PasswordService passwordService;
+    private final PasswordServiceImpl passwordService;
 
-    public ProfileController(ProfileServiceImpl profileServiceImpl, ProfileMapper profileMapper, PasswordService passwordService) {
+    public ProfileController(ProfileServiceImpl profileServiceImpl, ProfileMapper profileMapper, PasswordServiceImpl passwordService) {
         this.profileServiceImpl = profileServiceImpl;
         this.profileMapper = profileMapper;
         this.passwordService = passwordService;
@@ -36,6 +36,12 @@ public class ProfileController {
         List<ProfileResource> profileResourceList = profileServiceImpl.findAll().stream()
                 .map(profileMapper::profileToProfileResource).collect(Collectors.toList());
         return ResponseEntity.ok(profileResourceList);
+    }
+
+    @GetMapping("profile/{id}")
+    public ResponseEntity<ProfileResource> findById(@PathVariable(name = "id") String id) throws ProfileNotFoundException {
+        Profile profile = profileServiceImpl.findById(id);
+        return ResponseEntity.ok(profileMapper.profileToProfileResource(profile));
     }
 
     @PostMapping("profile")
@@ -49,14 +55,8 @@ public class ProfileController {
         return ResponseEntity.created(URI.create(uri)).body(profileMapper.profileToProfileResource(profile)) ;
     }
 
-    @GetMapping("profile/{id}")
-    public ResponseEntity<ProfileResource> findById(@PathVariable(name = "id") String id) throws ProfileNotFoundException {
-        Profile profile = profileServiceImpl.findById(id);
-        return ResponseEntity.ok(profileMapper.profileToProfileResource(profile));
-    }
-
     @PutMapping("profile")
-    public ResponseEntity<ProfileResource> updateProfile(@Valid @RequestBody ProfileResource profileResource){
+    public ResponseEntity<ProfileResource> update(@Valid @RequestBody ProfileResource profileResource){
         Profile profileToUpdate = profileMapper.profileResourceToProfile(profileResource);
         Profile updated = profileServiceImpl.update(profileToUpdate);
         return ResponseEntity.ok(profileMapper.profileToProfileResource(updated));
@@ -67,6 +67,12 @@ public class ProfileController {
                                             @RequestParam(name = "status") ProfileStatus status)
                                             throws ProfileNotFoundException {
         profileServiceImpl.enableOrDisableProfile(id, status);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("profile/{id}")
+    public ResponseEntity<?> delete(@PathVariable(name = "id") String id){
+        profileServiceImpl.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

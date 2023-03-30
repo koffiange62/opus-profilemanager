@@ -1,11 +1,9 @@
-package ci.jubile.joc.opusprofilemanager.unittest.v1.service;
+package ci.jubile.joc.opusprofilemanager.v1.service;
 
 import ci.jubile.joc.opusprofilemanager.model.Domain;
 import ci.jubile.joc.opusprofilemanager.model.Formation;
 import ci.jubile.joc.opusprofilemanager.model.Profile;
 import ci.jubile.joc.opusprofilemanager.v1.exception.ProfileNotFoundException;
-import ci.jubile.joc.opusprofilemanager.v1.service.FormationServiceImpl;
-import ci.jubile.joc.opusprofilemanager.v1.service.ProfileServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 @ExtendWith(MockitoExtension.class)
