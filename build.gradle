@@ -6,8 +6,6 @@ plugins {
 
 group = 'ci.jubile.joc'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "8"
-targetCompatibility = "8"
 
 configurations {
 	compileOnly {
@@ -75,4 +73,5 @@ tasks.register('integrationTest', Test) {
 
 }
 
-targetCompatibility = JavaVersion.VERSION_15
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
