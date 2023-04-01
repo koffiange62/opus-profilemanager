@@ -28,7 +28,7 @@ public class FormationServiceImpl implements ProfilePropertiesService<Formation>
             profile.getFormations().add(formation);
             profileService.update(profile);
         } catch (ProfileNotFoundException e) {
-            throw new NoSuchElementException(e);
+            throw new NoSuchElementException(e.getMessage());
         }
 
         return formation;
@@ -57,7 +57,7 @@ public class FormationServiceImpl implements ProfilePropertiesService<Formation>
             }
             return oldFormation;
         } catch (ProfileNotFoundException e) {
-            throw new NoSuchElementException(e);
+            throw new NoSuchElementException(e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class FormationServiceImpl implements ProfilePropertiesService<Formation>
             profile.getFormations().removeIf(f -> f.getId().equals(formationId));
             profileService.update(profile);
         } catch (ProfileNotFoundException e) {
-            throw new NoSuchElementException(e);
+            throw new NoSuchElementException(e.getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ public class FormationServiceImpl implements ProfilePropertiesService<Formation>
             Profile profile = profileService.findById(idProfile);
             return profile.getFormations();
         } catch (ProfileNotFoundException e) {
-            throw new NoSuchElementException(e);
+            throw new NoSuchElementException(e.getMessage());
         }
     }
 }
