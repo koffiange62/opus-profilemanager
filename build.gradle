@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.7'
+	id "org.springframework.boot" version '2.6.7'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
@@ -73,5 +73,5 @@ tasks.register('integrationTest', Test) {
 
 }
 
-sourceCompatibility = JavaVersion.VERSION_15
-targetCompatibility = JavaVersion.VERSION_15
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
